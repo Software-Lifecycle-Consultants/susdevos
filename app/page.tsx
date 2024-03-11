@@ -7,7 +7,7 @@ import CaseCard from "../components/CaseCard"
 import GridCardStack from '../components/GridCardStack'; 
 import Header from '@/components/Header/Header';
 import NavBar from '@/components/NavBar';
-import HaveAQue from '@/components/HaveAQue';
+import HQ from '@/components/HQ';
 
 
 
@@ -33,7 +33,7 @@ export default async function Page() {
           {/* <div className="bg-blue-100"><Header/></div> */}
           <div className="bg-blue-100"><NavBar/></div>
           <div className="bg-blue-300"><AboutCard/></div>
-          <div><HaveAQue/></div> 
+          <div><HQ/></div> 
           <div className="bg-green-200"><GridCardStack/></div> 
         </div>
         <div><CaseCard/></div>

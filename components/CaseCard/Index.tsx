@@ -9,21 +9,21 @@ import Card from './CCard';
 const Case: React.FC = () => {
   const cardDataArray = [
     {
-      imgSrc: '/Images/CaseCard/caseStudyCardImage1.webp',
+      imgSrc: '/Images/CaseCard/caseStudyCardImage3.webp',
       content: 'Development of a Industrial park', //Description of the case study
       cardCn: '', //Card class name
       pCn: 'text-slate-950 ', //Description (pCn: paragraph class name)
       buttonCn: 'text-black bg-white bg-slate-950', //Button  class name
     },
     {
-      imgSrc: '/Images/CaseCard/caseStudyCardImage1.webp',
+      imgSrc: '/Images/CaseCard/caseStudyCardImage2.webp',
       content: 'Road extension through a city and forest area', //Description of the case study
       cardCn: '', //Card class name
       pCn: 'text-slate-950', //Description (pCn: paragraph class name)
       buttonCn: 'text-black bg-white bg-slate-950', //Button  class name
     },
     {
-      imgSrc: '/Images/CaseCard/caseStudyCardImage3.webp',
+      imgSrc: '/Images/CaseCard/caseStudyCardImage1.webp',
       content: '100MW Solar & 500MW Wind power plants', //Description of the case study
       cardCn: '', //Card class name
       pCn: 'text-slate-950', //Description (pCn: paragraph class name)

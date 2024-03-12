@@ -5,7 +5,6 @@ import { lucia, validateRequest } from '@/modules/auth/lucia';
 import AboutCard from "../components/AboutCard"
 import CaseCard from "../components/CaseCard"
 import GridCardStack from '../components/GridCardStack'; 
-import Header from '@/components/Header/Header';
 import NavBar from '@/components/NavBar';
 import HQ from '@/components/HQ';
 
@@ -31,9 +30,14 @@ export default async function Page() {
         </div>
         <div className="grid grid-cols-layout flex-grow">
           {/* <div className="bg-blue-100"><Header/></div> */}
+<<<<<<< HEAD
           <div className="bg-blue-100"><NavBar/></div>
           <div className="bg-blue-300"><AboutCard/></div>
           <div><HQ/></div> 
+=======
+          <div className="bg-white"><NavBar/></div>
+          <div className="bg-white"><AboutCard/></div>
+>>>>>>> 72c82fc462d090ce27964d4e5c5f8a05bcc55aab
           <div className="bg-green-200"><GridCardStack/></div> 
         </div>
         <div><CaseCard/></div>

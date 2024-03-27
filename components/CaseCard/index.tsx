@@ -30,7 +30,7 @@ const Case: React.FC = () => {
 
   return (
     <>
-      <div className="flex-none mx-auto justify-center mt-24">
+      <div className="flex-none mx-auto justify-center mt-10">
         <h1 className="flex-none text-2xl lg:text-5xl font-s-[48px] text-center font-bold font-family:outfit">
           Case Studies 
         </h1>

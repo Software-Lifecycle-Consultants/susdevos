@@ -36,7 +36,7 @@ const Card: React.FC<CardProps> = ({ cardData }) => {
             {content}
           </p>
 
-        <button type="button" className="text-black border-[2px] bg-W  focus:ring-2 focus:outline-none  font-medium rounded-[100px] text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-white dark:hover:bg-blue-700 border-black mt-4 ">
+        <button type="button" className="text-black border-[2px] bg-W  focus:ring-2 focus:outline-none  font-medium rounded-[100px] text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-white hover:bg-teal-500 border-black mt-4 ">
              Read More
           <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
            <path stroke="currentColor" strokeLinecap ="round" strokeLinejoin="round" strokeWidth="2" d="m1 20.5 18-16m0 0H9.25m9.80 0v10.25"/>

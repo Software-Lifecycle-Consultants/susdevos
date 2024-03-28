@@ -50,13 +50,22 @@ const NonButton: React.FC = () => {
   
 
     return (
-      <div className="bg-white container w-full flex justify-center items-center mx-auto px-16 py-5">
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {cardDataNew.map((card, index) => (
-          <Card key={index} title={card.title} content={card.content} image={card.image} buttonLogic={card.button} />
-        ))}
+      <div>
+        {/* Benifits of using susdevOs content */}
+        <div className="pt-10">
+          <h1 className=" lg:h-[60px] lg:w-[698px] text-center font-semibold lg:font-medium text-[48px] lg:text-5xl text-slate-900 mx-auto sm:pb-20 pb-10 px-2">Benefits of using SusDev-OS</h1>
+          <p className=" mt-1 lg:h-[108px] lg:w-[729px] font-medium text-lg lg:text-[24px] text-[21px] leading-6 lg:leading-9 text-center text-slate-900 mx-10 lg:mx-auto pb-8">SusDev-OS revolutionizes climate-conscious development projects through advanced technology.</p>
+        </div>
+        {/* Non Button Card Div tag */}
+        <div className="bg-white w-full flex justify-center items-center mx-auto px-8 py-8 sm:px-40 sm:py-20">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {cardDataNew.map((card, index) => (
+            <Card key={index} title={card.title} content={card.content} image={card.image} buttonLogic={card.button} />
+          ))}
+          </div>
         </div>
       </div>
+      
     );
 
   };

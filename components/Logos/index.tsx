@@ -46,7 +46,7 @@ const Logos = () => {
           ))}
         </div>
       </div>
-      <div className="flex sm:hidden gap-6 p-2 w-[375px] mx-auto items-center h-[200px]">
+      <div className="flex mt-20 sm:hidden gap-6 p-2 w-[375px] mx-auto items-center h-[200px]">
         <Image
           src="/Images/Logos/arrow-left-s-fill.png"
           className="h-10 w-10"

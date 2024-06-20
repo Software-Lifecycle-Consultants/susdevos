@@ -18,10 +18,14 @@ interface User {
 const UserManagement: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [users, setUsers] = useState<User[]>([
-    { name: 'Olivia Rhye', email: 'olivia@untitledui.com', role: 'Manager', dateAdded: 'Feb 22, 2022', lastActive: 'Mar 14, 2022', status: true },
-    { name: 'Phoenix Baker', email: 'phoenix@untitledui.com', role: 'Admin', dateAdded: 'Feb 22, 2022', lastActive: 'Mar 12, 2022', status: false },
-    { name: 'Charlie Miller', email: 'charlie@untitledui.com', role: 'Manager', dateAdded: 'Mar 15, 2022', lastActive: 'Jun 12, 2024', status: true },
-    { name: 'Aurora Jones', email: 'aurora@untitledui.com', role: 'Manager', dateAdded: 'May 01, 2023', lastActive: 'Jun 10, 2024', status: true }
+    { name: 'Olivia Rhye', email: 'olivi34a@untitledui.com', role: 'Manager', dateAdded: 'Feb 22, 2022', lastActive: 'Mar 14, 2022', status: true },
+    { name: 'Phoenix Baker', email: 'phoe3nix@untitledui.com', role: 'Admin', dateAdded: 'Feb 22, 2022', lastActive: 'Mar 12, 2022', status: false },
+    { name: 'Charlie Miller', email: 'ch43arlie@untitledui.com', role: 'Manager', dateAdded: 'Mar 15, 2022', lastActive: 'Jun 12, 2024', status: true },
+    { name: 'Aurora Jones', email: 'aur4ora@untitledui.com', role: 'Manager', dateAdded: 'May 01, 2023', lastActive: 'Jun 10, 2024', status: true },
+    { name: 'Olivia Rhye', email: 'oliv2ia@untitledui.com', role: 'Manager', dateAdded: 'Feb 22, 2022', lastActive: 'Mar 14, 2022', status: true },
+    { name: 'Phoenix Baker', email: 'ph1oenix@untitledui.com', role: 'Admin', dateAdded: 'Feb 22, 2022', lastActive: 'Mar 12, 2022', status: false },
+    { name: 'Charlie Miller', email: 'c3harlie@untitledui.com', role: 'Admin', dateAdded: 'Mar 15, 2022', lastActive: 'Jun 12, 2024', status: true },
+    { name: 'Aurora Jones', email: 'auror4a@untitledui.com', role: 'Admin', dateAdded: 'May 01, 2023', lastActive: 'Jun 10, 2024', status: true }
   ]);
 
   const openModal = () => {
@@ -49,28 +53,15 @@ const UserManagement: React.FC = () => {
           <p className="text-gray-600">Manage your team members and their accounts here.</p>
         </div>
         <Button
-          className="bg-purple-700 text-white px-4 py-2 rounded hover:bg-purple-800"
-          onPress={openModal}
-          style={{ backgroundColor: '#7F56D9' }}
-        >
-          <span className="flex items-center">
-            <svg
-              className="w-4 h-4 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-            Add new
-          </span>
-        </Button>
+            className="bg-purple-700 text-white px-4 py-2 rounded hover:bg-purple-800"
+            onPress={openModal}
+            style={{ backgroundColor: '#7F56D9' }}
+              >
+            <span className="flex items-center">
+              <i className="ri-user-add-line text-xl mr-2"></i> {/* Adjusted icon size with text-xl class */}
+              Add new
+            </span>
+      </Button>
       </div>
 
       <div className="grid grid-cols-4 gap-4 divide-y divide-gray-200">

@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import PhoneNumberInput from '@/app/register/PhoneNumberInput';
+import { AddNewUserSchema, AddNewUserSchemaData } from './AddNewUserZodValidation';
+import { ZodError } from 'zod';
 
 // Define the User type
 interface User {
@@ -19,12 +21,21 @@ interface AddNewUserFormProps {
 }
 
 const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<AddNewUserSchemaData>({
     firstName: '',
     lastName: '',
     email: '',
     phone: '',
-    role: '',  
+    role: '',
+    department: '',
+  });
+
+  const [errors, setErrors] = useState<{ [key: string]: string }>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    role: '',
     department: '',
   });
 
@@ -37,24 +48,59 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
     setFormData({ ...formData, phone: `${countryCode}${phoneNumber}` });
   };
 
+  const validate = (data: AddNewUserSchemaData) => {
+    try {
+      AddNewUserSchema.parse(data);
+      setErrors({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        role: '',
+        department: '',
+      });
+      return true;
+    } catch (e) {
+      if (e instanceof ZodError) {
+        const newErrors: any = {};
+        e.errors.forEach((err) => {
+          if (err.path.length > 0) {
+            const key = err.path[0];
+            if (key in newErrors) {
+              newErrors[key] += `\n${err.message}`;
+            } else {
+              newErrors[key] = err.message;
+            }
+          }
+        });
+        setErrors(newErrors);
+      } else {
+        console.error('Unknown error occurred:', e);
+      }
+      return false;
+    }
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit({
-      name: `${formData.firstName} ${formData.lastName}`,
-      email: formData.email,
-      role: formData.role,
-      dateAdded: new Date().toLocaleDateString(),
-      lastActive: new Date().toLocaleDateString(),
-      status: true,
-    });
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      role: '',
-      department: '',
-    });
+    if (validate(formData)) {
+      onSubmit({
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        role: formData.role,
+        dateAdded: new Date().toLocaleDateString(),
+        lastActive: new Date().toLocaleDateString(),
+        status: true,
+      });
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        role: '',
+        department: '',
+      });
+    }
   };
 
   return (
@@ -71,8 +117,8 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
             onChange={handleChange}
             placeholder="e.g. John"
             className="w-full border border-gray-300 rounded px-3 py-2"
-            required
           />
+          {errors.firstName && <span className="text-red-500">{errors.firstName}</span>}
         </div>
         <div>
           <label htmlFor="lastName" className="block mb-1">Last Name</label>
@@ -84,8 +130,8 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
             onChange={handleChange}
             placeholder="e.g. Doe"
             className="w-full border border-gray-300 rounded px-3 py-2"
-            required
           />
+          {errors.lastName && <span className="text-red-500">{errors.lastName}</span>}
         </div>
       </div>
       <div>
@@ -98,14 +144,15 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
           onChange={handleChange}
           placeholder="hello@mail.com"
           className="w-full border border-gray-300 rounded px-3 py-2"
-          required
         />
+        {errors.email && <span className="text-red-500">{errors.email}</span>}
       </div>
       <div>
         <PhoneNumberInput
           register={handlePhoneChange}
           error={null}
         />
+        {errors.phone && <span className="text-red-500">{errors.phone}</span>}
       </div>
       <div>
         <label htmlFor="role" className="block mb-1">Your Role</label>
@@ -114,14 +161,14 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
           name="role"
           value={formData.role}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded px-3 py-2"
-          required
+          className="w-full border border-gray-300 rounded px-3 py-3"
         >
           <option value="">Select a role</option>
           <option value="Admin">Admin</option>
           <option value="Manager">Manager</option>
           <option value="User">User</option>
         </select>
+        {errors.role && <span className="text-red-500">{errors.role}</span>}
       </div>
       <div>
         <label htmlFor="department" className="block mb-1">Your Department</label>
@@ -131,13 +178,13 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
           value={formData.department}
           onChange={handleChange}
           className="w-full border border-gray-300 rounded px-3 py-2"
-          required
         >
           <option value="">Select</option>
           <option value="HR">HR</option>
           <option value="Engineering">Engineering</option>
           <option value="Marketing">Marketing</option>
         </select>
+        {errors.department && <span className="text-red-500">{errors.department}</span>}
       </div>
       <div className="flex justify-end space-x-2">
         <button

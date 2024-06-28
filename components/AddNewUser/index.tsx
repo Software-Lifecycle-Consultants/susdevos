@@ -25,7 +25,6 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
     firstName: '',
     lastName: '',
     email: '',
-    phone: '',
     role: '',
     department: '',
   });
@@ -44,9 +43,6 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
     setFormData({ ...formData, [name]: value });
   };
 
-  const handlePhoneChange = (countryCode: string, phoneNumber: string) => {
-    setFormData({ ...formData, phone: `${countryCode}${phoneNumber}` });
-  };
 
   const validate = (data: AddNewUserSchemaData) => {
     try {
@@ -55,7 +51,7 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
         firstName: '',
         lastName: '',
         email: '',
-        phone: '',
+        phoneNumber: '',
         role: '',
         department: '',
       });
@@ -96,7 +92,6 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
         firstName: '',
         lastName: '',
         email: '',
-        phone: '',
         role: '',
         department: '',
       });
@@ -148,10 +143,10 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
         {errors.email && <span className="text-red-500">{errors.email}</span>}
       </div>
       <div>
-        <PhoneNumberInput
-          register={handlePhoneChange}
-          error={null}
-        />
+      <PhoneNumberInput 
+              register={('phoneNumber')}
+              error={errors.phoneNumber}
+            />
         {errors.phone && <span className="text-red-500">{errors.phone}</span>}
       </div>
       <div>

@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import 'remixicon/fonts/remixicon.css'; // Ensure you import the Remix Icon CSS
+import StatusSwitch from './StatusSwitch';
 
 interface User {
   name: string;
@@ -16,6 +17,7 @@ interface UserManagementTableProps {
   users: User[];
 }
 const UserManagementTable: React.FC<UserManagementTableProps> = ({ title, users }) => {
+
 
     // State to manage "Select All" checkbox and selected users
     const [selectAll, setSelectAll] = useState(false); // State to track whether "Select All" checkbox is checked
@@ -52,7 +54,19 @@ const UserManagementTable: React.FC<UserManagementTableProps> = ({ title, users 
       setSelectedUsers(newSelected); // Update selected users
       setSelectAll(newSelected.length === users.length); 
     };
-  
+
+    const [userStatuses, setUserStatuses] = useState(
+      users.map((user) => user.status)
+    );
+
+    const handleToggleStatus = (email: string) => {
+      const userIndex = users.findIndex((user) => user.email === email);
+      setUserStatuses((prevStatuses) => {
+        const updatedStatuses = [...prevStatuses];
+        updatedStatuses[userIndex] = !prevStatuses[userIndex];
+        return updatedStatuses;
+      });
+    };
   return (
     <div className="mb-8">
       <div className="shadow-lg rounded-lg overflow-hidden">
@@ -76,7 +90,7 @@ const UserManagementTable: React.FC<UserManagementTableProps> = ({ title, users 
             </tr>
           </thead>
           <tbody className="bg-gray-50 text-sm">
-            {users.map((user) => (
+            {users.map((user, index) => (
               <tr key={user.email}>
                 <td className="py-2 px-4 border-b border-gray-200 flex items-center">
                   <input
@@ -97,8 +111,12 @@ const UserManagementTable: React.FC<UserManagementTableProps> = ({ title, users 
                 <td className="py-2 px-4 border-b border-gray-200">{user.dateAdded}</td>
                 <td className="py-2 px-4 border-b border-gray-200">{user.lastActive}</td>
                 <td className="py-2 px-4 border-b border-gray-200">
-                  <input type="checkbox" checked={user.status} readOnly />
+                  <StatusSwitch
+                    checked={userStatuses[index]}
+                    onChange={() => handleToggleStatus(user.email)}
+                  />
                 </td>
+
                 <td className="py-2 px-4 border-b border-gray-200 flex items-center">
                   <button>
                     <i className="ri-delete-bin-line"></i>

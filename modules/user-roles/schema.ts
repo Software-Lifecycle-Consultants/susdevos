@@ -1,31 +1,8 @@
-import * as dotenv from 'dotenv';
-import type { Config } from 'drizzle-kit';
-import { pgTable, text } from 'drizzle-orm/pg-core';
-import { createInsertSchema } from 'drizzle-zod';
-import { z } from 'zod';
+import { serial, varchar } from 'drizzle-orm/pg-core';
+import { pgTable } from 'drizzle-orm/pg-core';
 
-dotenv.config();
-
-export default {
-  schema: './modules/**/schema.ts',
-  out: './.drizzle',
-  dialect: 'postgresql',
-  dbCredentials: {
-    url: process.env.DATABASE_URL,
-  },
-} as Config;
-
-export const userRolesTable = pgTable('userRole', {
-  id: text('id').primaryKey(),
-  rolename: text('rolename').notNull().unique(),
-  roleNickName: text('roleNickName').notNull().default(''),
+export const userRoles = pgTable('user_roles', {
+  id: serial('id').primaryKey(),
+  roleName: varchar('role_name').notNull().unique(),
+  roleTag: varchar('role_tag').notNull().unique(),
 });
-
-// Use drizzle-zod to convert drizzle schema to zod schema.
-// If we retrieve a record from this table, it must adhere to the ts type
-export const createUserRoleSchema = createInsertSchema(userRolesTable, {
-  rolename: (schema) => schema.rolename.min(6).max(255),
-  roleNickName: (schema) => schema.roleNickName.min(6).max(255),
-});
-
-export type CreateUserInput = z.infer<typeof createUserRoleSchema>;

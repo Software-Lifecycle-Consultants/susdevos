@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PhoneNumberInput from '@/app/register/PhoneNumberInput';
 import { AddNewUserSchema, AddNewUserSchemaData } from './AddNewUserZodValidation';
 import { ZodError } from 'zod';
+import validator from 'validator';
+import { getRoles } from '@/app/api/roles/actions';
 
 // Define the User type
 interface User {
@@ -79,11 +81,39 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (validate(formData)) {
+
+    // Validate all fields first
+    if (!validate(formData)) {
+      return;
+    }
+
+    // Sanitize and validate email field
+    let sanitizedEmail = validator.normalizeEmail(formData.email) || '';
+
+    // Validate email field separately
+    if (!sanitizedEmail) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: 'Email field is empty',
+      }));
+      return;
+    } else if (!validator.isEmail(sanitizedEmail)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: 'Invalid email address',
+      }));
+      return;
+    }
+
+
+    // Update formData with sanitized email
+    const updatedFormData = { ...formData, email: sanitizedEmail };
+
+    if (validate(updatedFormData)) {
       onSubmit({
-        name: `${formData.firstName} ${formData.lastName}`,
-        email: formData.email,
-        role: formData.role,
+        name: `${updatedFormData.firstName} ${updatedFormData.lastName}`,
+        email: updatedFormData.email,
+        role: updatedFormData.role,
         dateAdded: new Date().toLocaleDateString(),
         lastActive: new Date().toLocaleDateString(),
         status: true,
@@ -97,6 +127,26 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
       });
     }
   };
+
+
+
+  const [roles, setRoles] = useState<
+    { id: number; roleName: string; roleTag: string }[]
+  >([]);
+
+  useEffect(() => {
+    // Fetch roles from the database when the component mounts
+    const fetchRoles = async () => {
+      try {
+        const rolesFromDb = await getRoles();
+        setRoles(rolesFromDb);
+      } catch (error) {
+        console.error('Error fetching roles:', error);
+      }
+    };
+
+    fetchRoles();
+  }, []);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -143,10 +193,10 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
         {errors.email && <span className="text-red-500">{errors.email}</span>}
       </div>
       <div>
-      <PhoneNumberInput 
-              register={('phoneNumber')}
-              error={errors.phoneNumber}
-            />
+        <PhoneNumberInput
+          register={('phoneNumber')}
+          error={errors.phoneNumber}
+        />
         {errors.phone && <span className="text-red-500">{errors.phone}</span>}
       </div>
       <div>
@@ -156,12 +206,14 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
           name="role"
           value={formData.role}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded px-3 py-3"
+          className="w-full border border-gray-300 rounded px-3 py-2"
         >
           <option value="">Select a role</option>
-          <option value="Admin">Admin</option>
-          <option value="Manager">Manager</option>
-          <option value="User">User</option>
+          {roles.map((role) => (
+            <option key={role.id} value={role.roleName}>
+              {role.roleName}
+            </option>
+          ))}
         </select>
         {errors.role && <span className="text-red-500">{errors.role}</span>}
       </div>
@@ -200,5 +252,4 @@ const AddNewUserForm: React.FC<AddNewUserFormProps> = ({ onSubmit, onCancel }) =
     </form>
   );
 };
-
 export default AddNewUserForm;

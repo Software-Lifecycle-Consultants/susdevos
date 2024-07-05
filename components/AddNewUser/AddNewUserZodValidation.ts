@@ -5,7 +5,6 @@ export const AddNewUserSchema = z.object({
     firstName: z.string().min(1, { message: 'First name is required' }),
     lastName: z.string().min(1, { message: 'Last name is required' }),
     email: z.string().email('Invalid email address'),
-    phone: z.string().min(10, { message: 'Phone number must be at least 10 characters' }),
     role: z.string().trim().min(1, { message: 'Please select a role' }),
     department: z.string().trim().min(1, { message: 'Please select a department' }),
 });

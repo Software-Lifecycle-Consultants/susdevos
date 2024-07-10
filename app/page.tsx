@@ -15,6 +15,7 @@ import PartneringContent from '@/components/PartneringContent';
 import SolvesTheProblem from '@/components/SolvesTheProblem';
 import TextBanner from '@/components/TextBanner';
 import SusDev from '@/components/SusDevOsMain';
+import AdminAccount from '@/components/AdminAccount';
 
 
 export default async function Page() {
@@ -37,6 +38,8 @@ export default async function Page() {
         </div>
         {/* Home Page */}
         <div className="grid grid-cols-layout flex-grow">
+          {/* temporary */}
+          <div><AdminAccount /></div>
           {/* Navigation Bar */}
           <div className='border-b border-text-disabled'><NavBar /></div>
           {/* Main Title Component With Search Bar */}
@@ -63,6 +66,7 @@ export default async function Page() {
           <div><PartneringContent /></div>
           {/* Footer*/}
           <div><Footer /></div>
+          
         </div>
       </div>
     </div>

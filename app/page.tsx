@@ -27,7 +27,7 @@ export default async function Page() {
     // The main div
     <div>
       <div className="grid grid-rows-layout h-screen">
-        <div className="bg-gray-100 p-4">
+        {/* <div className="bg-gray-100 p-4">
           <h1>Hi, {user.username}!</h1>
           <p>Your user ID is {user.id}.</p>
           <div className="flex flex-col">
@@ -35,7 +35,7 @@ export default async function Page() {
               <button>Sign out</button>
             </ClientForm>
           </div>
-        </div>
+        </div> */}
         {/* Home Page */}
         <div className="grid grid-cols-layout flex-grow">
           {/* temporary */}

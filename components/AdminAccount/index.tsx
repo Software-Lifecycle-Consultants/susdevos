@@ -1,18 +1,11 @@
 'use client';
 
-import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
-import { LexicalComposer } from '@lexical/react/LexicalComposer';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { ContentEditable } from '@lexical/react/LexicalContentEditable';
-import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
-import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
-import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
-import { EditorState } from 'lexical';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import {
   Button,
   Form,
+  HeadingContext,
   Input,
   Label,
   ListBox,
@@ -21,25 +14,8 @@ import {
   Select,
   SelectValue,
 } from 'react-aria-components';
+import Editor from './Editor';
 
-const theme = {};
-
-function onError(error: Error): void {
-  console.error(error);
-}
-
-function MyOnChangePlugin(props: {
-  onChange: (editorState: EditorState) => void;
-}): null {
-  const [editor] = useLexicalComposerContext();
-  const { onChange } = props;
-  React.useEffect(() => {
-    return editor.registerUpdateListener(({ editorState }) => {
-      onChange(editorState);
-    });
-  }, [onChange, editor]);
-  return null;
-}
 
 const AdminAccount: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -59,11 +35,7 @@ const AdminAccount: React.FC = () => {
     bio: '',
   });
 
-  const initialConfig = {
-    namespace: 'MyEditor',
-    theme,
-    onError,
-  };
+  
 
   const onSubmit = async (e: any) => {
     const fd = new FormData();
@@ -94,23 +66,7 @@ const AdminAccount: React.FC = () => {
         </p>
 
         {/* lexical component */}
-        <div className="relative bg-orange-300">
-          <LexicalComposer initialConfig={initialConfig}>
-            <RichTextPlugin
-              contentEditable={<ContentEditable className="p-2 h-20 w-80" />}
-              placeholder={<div className="absolute left-0 top-0 p-2">Enter some text...</div>}
-              ErrorBoundary={LexicalErrorBoundary}
-            />
-
-            <HistoryPlugin />
-            <MyOnChangePlugin
-              onChange={(editorState) => {
-                console.log(editorState);
-              }}
-            />
-          </LexicalComposer>
-        </div>
-
+        <Editor />
         <div className="flex flex-row gap-2 absolute right-2 justify-center">
           {/* cancel button */}
           <Button className="w-[79px] h-[40px] bg-white hover:bg-slate-100 rounded-lg border-2 font-medium text-sm">
@@ -133,11 +89,11 @@ const AdminAccount: React.FC = () => {
               </Label>
               <div className="flex flex-row gap-6">
                 <Input
-                  className="w-[244px] h-[44px] text-sm font medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                  className="w-[244px] h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                   name="firstName"
                 />
                 <Input
-                  className="w-[244px] h-[44px] text-sm font medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                  className="w-[244px] h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                   name="lastName"
                 />
               </div>
@@ -149,7 +105,7 @@ const AdminAccount: React.FC = () => {
                 Username
               </Label>
               <Input
-                className="w-[512px] h-[44px] text-sm font medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                className="w-[512px] h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                 name="userName"
               />
             </div>
@@ -162,7 +118,7 @@ const AdminAccount: React.FC = () => {
                 Email Address
               </Label>
               <Input
-                className="relative w-[512px] h-[44px] text-sm font medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                className="relative w-[512px] h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                 name="email"
                 type="email"
               >

@@ -1,3 +1,5 @@
+'use client'
+
 import Card from "./BCard";
 
 const Button: React.FC = () => {

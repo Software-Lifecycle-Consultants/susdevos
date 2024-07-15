@@ -1,3 +1,5 @@
+'use client'
+
 import SearchBar from '@/components/MainContent/SearchBar'
 
 export default function MainContent() {

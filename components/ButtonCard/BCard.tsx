@@ -1,6 +1,6 @@
 'use client'
+
 import Image from 'next/image';
-import React from 'react';
 import { Button} from 'react-aria-components';
 
 //Create main variable for creating card

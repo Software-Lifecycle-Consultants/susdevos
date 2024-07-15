@@ -15,6 +15,7 @@ import PartneringContent from '@/components/PartneringContent';
 import SolvesTheProblem from '@/components/SolvesTheProblem';
 import TextBanner from '@/components/TextBanner';
 import SusDev from '@/components/SusDevOsMain';
+import AdminAccount from '@/components/AdminAccount';
 
 
 export default async function Page() {
@@ -26,7 +27,7 @@ export default async function Page() {
     // The main div
     <div>
       <div className="grid grid-rows-layout h-screen">
-        <div className="bg-gray-100 p-4">
+        {/* <div className="bg-gray-100 p-4">
           <h1>Hi, {user.username}!</h1>
           <p>Your user ID is {user.id}.</p>
           <div className="flex flex-col">
@@ -34,9 +35,11 @@ export default async function Page() {
               <button>Sign out</button>
             </ClientForm>
           </div>
-        </div>
+        </div> */}
         {/* Home Page */}
         <div className="grid grid-cols-layout flex-grow">
+          {/* temporary */}
+          <div><AdminAccount /></div>
           {/* Navigation Bar */}
           <div className='border-b border-text-disabled'><NavBar /></div>
           {/* Main Title Component With Search Bar */}
@@ -63,6 +66,7 @@ export default async function Page() {
           <div><PartneringContent /></div>
           {/* Footer*/}
           <div><Footer /></div>
+          
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@
  * It provides a search bar for tablet and web view, and separates
  * the search bar and the button for mobile view.
  */
-
+'use client'
 import { Button, Form } from "react-aria-components";
 
 const SearchBar = () => {

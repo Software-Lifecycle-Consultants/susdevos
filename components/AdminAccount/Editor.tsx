@@ -45,7 +45,7 @@ export default function Editor():JSX.Element {
         theme,
         onError,
         nodes: [
-            HeadingNode
+            // HeadingNode
         ]
       };
 

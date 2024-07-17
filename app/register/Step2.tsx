@@ -1,5 +1,5 @@
 // Step2.tsx
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent,useEffect } from 'react';
 import { Button, Input, Label, Link, TextArea, Form } from 'react-aria-components';
 import Image from 'next/image';
 import { useForm, type FieldValues } from 'react-hook-form';
@@ -11,14 +11,22 @@ import { zodResolver } from '@hookform/resolvers/zod';
 interface Step2Props {
   onNext: () => void;
   onPrevious: () => void;
-  onChange: (data: { [key: string]: string }) => void;
+  // onChange: (data: { [key: string]: string }) => void;
+  formData: FormData;
+  setFormData: (data: FormData) => void;
 }
 
-const Step2: React.FC<Step2Props> = ({ onNext, onPrevious, onChange }) => {
+const Step2: React.FC<Step2Props> = ({ onNext, onPrevious,formData, setFormData }) => {
 
-  const { register, handleSubmit, formState: { errors } } = useForm<RegisterDataStep2>({
+  const { register, handleSubmit, formState: { errors },watch } = useForm<RegisterDataStep2>({
     resolver: zodResolver(RegisterSchemaStep2),
   });
+
+  const gettingData = watch();
+
+  useEffect(() => {
+    console.log("useEffect",formData);
+  }, [gettingData,formData]);
 
   const [selectedCountryCode, setSelectedCountryCode] = useState('+1');
   const [selectedOptions, setSelectedOptions] = useState<Array<string>>([]);
@@ -34,10 +42,13 @@ const Step2: React.FC<Step2Props> = ({ onNext, onPrevious, onChange }) => {
     }
   };
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
+    setFormData({ ...formData, ...data });
     await new Promise((resolve) => setTimeout(resolve, 1000));
+
     onNext()
-    
+    setTimeout(() => {
+      console.log("onSubmit",formData);
+    }, 1000);
   }
 
   return (

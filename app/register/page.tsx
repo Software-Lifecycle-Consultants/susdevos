@@ -5,12 +5,31 @@ import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 
+interface FormData {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  organization: string;
+  phoneNumber: string;
+  message: string;
+  terms: boolean;
+
+}
+
 const RegistrationFlow = () => {
   // Define state variables using the useState hook
   // - 'step': represents the current step in the registration flow
   // - 'formData': stores the form data collected from the registration flow
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState<FormData>({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    organization: '',
+    phoneNumber: '',
+    message: '',
+    terms:  false
+ });
 
   // Function that handles moving to the next step in the registration flow
   const handleNextStep = () => {
@@ -34,15 +53,22 @@ const RegistrationFlow = () => {
     <div>
       {/* Conditional rendering based on the current step */}
       {/* Render Step1 component if 'step' is 1 */}
-      {step === 1 && <Step1 
+      {step === 1 && (
+        <Step1 
           onNext={handleNextStep} 
-          onChange={handleFormDataChange} />}
+          formData={formData as any} 
+          setFormData={setFormData as any}
+        />
+      )}
       {/* Render Step2 component if 'step' is 2 */}
-      {step === 2 && <Step2 
+      {step === 2 && (
+        <Step2 
           onNext={handleNextStep} 
           onPrevious={handlePreviousStep} 
-          onChange={handleFormDataChange} 
-          />}
+          formData={formData as any} 
+          setFormData={setFormData as any}
+        />
+      )}
       {/* Render Step3 component if 'step' is 3 */}
       {step === 3 && <Step3 
           onPrevious={handlePreviousStep}

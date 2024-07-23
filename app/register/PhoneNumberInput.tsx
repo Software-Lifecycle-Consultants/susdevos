@@ -1,3 +1,5 @@
+import {Input, Label, Select } from 'react-aria-components';
+
 interface PhoneNumberInputProps {
 	register: any; // Register function from react-hook-form
 	error?: any; // Error object from form validation
@@ -9,7 +11,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
 }) => {
   return (
     <div className="flex flex-col space-y-4">
-      <label htmlFor="phoneNumber" className="text-gray-600">Phone Number</label>
+      <Label htmlFor="phoneNumber" className="text-gray-600">Phone Number</Label>
       <div className="flex">
         <select 
           id="countryCode" 
@@ -232,7 +234,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
 			<option data-countryCode="ZW" value="263">ZW (+263)</option>
           {/* Add more options as needed */}
         </select>
-        <input 
+        <Input 
           type="tel" 
           name="phoneNumber" 
           placeholder="+94 (555) 000-0000" 

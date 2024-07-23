@@ -1,3 +1,5 @@
+'use client'
+
 import Card from "./BCard";
 
 const Button: React.FC = () => {
@@ -43,13 +45,19 @@ const cardData = [
   ];
     return (
       //call the Card.tsx as a grid
-      <div className="bg-white w-full flex justify-center items-center px-8 py-8 sm:px-40 sm:py-20">
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> 
-          {cardData.map((card, index) => (
-            <Card key={index} title={card.title} content={card.content} image={card.image} buttonLogic={card.button} />
-          ))}
+      <div>
+        <div className="pt-10 sm:pt-20">
+          <h2 className=" lg:h-[60px] lg:w-[698px] text-center font-semibold lg:font-medium text-[48px] lg:text-5xl text-slate-900 mx-auto sm:px-20 ">And more</h2>          
+        </div>
+        <div className="bg-white w-full flex justify-center items-center px-8 py-8 sm:px-40 sm:py-20">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> 
+            {cardData.map((card, index) => (
+              <Card key={index} title={card.title} content={card.content} image={card.image} buttonLogic={card.button} />
+            ))}
+          </div>
         </div>
       </div>
+      
         
     );
 };

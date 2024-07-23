@@ -1,4 +1,5 @@
-// Step1.tsx
+'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import React, { ChangeEvent, FormEvent, useState } from 'react';

@@ -14,8 +14,8 @@ import {
   Select,
   SelectValue,
 } from 'react-aria-components';
-import Editor from './Editor';
 
+import TextEditor from './TextEditor';
 
 const AdminAccount: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -34,8 +34,6 @@ const AdminAccount: React.FC = () => {
     website: '',
     bio: '',
   });
-
-  
 
   const onSubmit = async (e: any) => {
     const fd = new FormData();
@@ -65,8 +63,6 @@ const AdminAccount: React.FC = () => {
           Update your photo and personal details here.
         </p>
 
-        {/* lexical component */}
-        <Editor />
         <div className="flex flex-row gap-2 absolute right-2 justify-center">
           {/* cancel button */}
           <Button className="w-[79px] h-[40px] bg-white hover:bg-slate-100 rounded-lg border-2 font-medium text-sm">
@@ -319,10 +315,12 @@ const AdminAccount: React.FC = () => {
                   Write a short introduction.
                 </p>
               </Label>
-              <Input
-                className="w-[512px] h-[154px] text-sm font medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+              {/* <Input
+                className="w-[512px] h-[154px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                 name="bio"
-              />
+              /> */}
+              {/* Quill component */}
+              <TextEditor />
             </div>
           </div>
 

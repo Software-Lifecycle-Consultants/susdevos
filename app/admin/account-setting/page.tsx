@@ -1,9 +1,9 @@
-// import UserManagement from '@/components/UserManagmentComp';
+import AdminAccount  from '@/components/AdminAccount';
 
-// export default function userManagement() {
-//   return (
-//     <div>
-//       <UserManagement/>
-//     </div>
-//   );
-// }
+export default function adminAccount() {
+  return (
+    <div>
+      <AdminAccount/>
+    </div>
+  );
+}

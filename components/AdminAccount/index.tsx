@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import {
@@ -49,21 +50,25 @@ const AdminAccount: React.FC = () => {
     console.log(response);
   };
 
+  const TextEditor = dynamic(() => import('./TextEditor'), {
+    ssr: false,
+  });
+
   return (
     <div className="flex flex-col bg-yellow-100 p-2 gap-2">
       <div className="bg-white">
-        <h1 className="font-semibold text-3xl">My Account</h1>
-        <p className="text-base font-medium text-slate-800">
+        <h1 className="font-semibold text-2xl lg:text-3xl">My Account</h1>
+        <p className="text-md lg-text-base font-medium text-slate-800">
           Manage your personal profile details here.
         </p>
       </div>
-      <div className="flex flex-col bg-white mt-5 px-10 ">
-        <h1 className="font-semibold text-xl">Personal Info</h1>
-        <p className="text-base font-medium text-slate-800">
+      <div className="flex flex-col bg-white mt-5 lg:px-10 ">
+        <h1 className="font-semibold text-lg lg:text-xl">Personal Info</h1>
+        <p className="text-left text-base font-medium text-slate-800">
           Update your photo and personal details here.
         </p>
 
-        <div className="flex flex-row gap-2 absolute right-2 justify-center">
+        <div className="flex flex-row  gap-2 absolute right-2 justify-center">
           {/* cancel button */}
           <Button className="w-[79px] h-[40px] bg-white hover:bg-slate-100 rounded-lg border-2 font-medium text-sm">
             Cancel
@@ -75,33 +80,33 @@ const AdminAccount: React.FC = () => {
           </Button>
         </div>
 
-        <Form className="flex flex-col mt-5 gap-6 w-[1494px] h-[1284px] divide-y divide-slate-300">
+        <Form className="flex flex-col mt-5 gap-6 lg:w-[1494px] lg:h-[1284px] divide-y divide-slate-300">
           {/* divider */}
           <div className="flex flex-col gap-4">
             {/* name */}
-            <div className="flex flex-row">
+            <div className="flex flex-col gap-2 lg:gap-0 lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Name
               </Label>
-              <div className="flex flex-row gap-6">
+              <div className="flex flex-col lg:flex-row gap-2 lg:gap-6">
                 <Input
-                  className="w-[244px] h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                  className="lg:w-[244px] lg:h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                   name="firstName"
                 />
                 <Input
-                  className="w-[244px] h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                  className="lg:w-[244px] lg:h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                   name="lastName"
                 />
               </div>
             </div>
 
             {/* Username */}
-            <div className="flex flex-row">
+            <div className="flex flex-col gap-2 lg:gap-0 lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Username
               </Label>
               <Input
-                className="w-[512px] h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                className="lg:w-[512px] lg:h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                 name="userName"
               />
             </div>
@@ -109,12 +114,12 @@ const AdminAccount: React.FC = () => {
 
           <div className="">
             {/* Email Address */}
-            <div className="flex flex-row mt-6">
+            <div className="flex flex-col gap-2 lg:gap-0 lg:flex-row mt-6">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Email Address
               </Label>
               <Input
-                className="relative w-[512px] h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                className="relative lg:w-[512px] lg:h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                 name="email"
                 type="email"
               >
@@ -122,8 +127,8 @@ const AdminAccount: React.FC = () => {
                   <Image
                     className="absolute left-2 size-5 "
                     src="/Images/AdminSetting/mail-icon.webp"
-                    width={10}
-                    height={10}
+                    width={2}
+                    height={2}
                     alt="mail-icon"
                   />
                 </div> */}
@@ -133,7 +138,7 @@ const AdminAccount: React.FC = () => {
 
           <div className="">
             {/* Your photo */}
-            <div className="flex flex-row mt-6">
+            <div className="flex flex-col gap-6 lg:gap-0 lg:flex-row mt-6">
               <Label className="font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Your Photo
                 <p className="text-xs font-medium text-slate-700">
@@ -153,7 +158,7 @@ const AdminAccount: React.FC = () => {
               {/* Upload Button */}
               <Button
                 onPress={onSubmit}
-                className="w-[428px] h-[128px] rounded-normal border-2 border-slate-300 rounded-lg"
+                className="lg:w-[428px] lg:h-[128px] rounded-normal border-2 border-slate-300 rounded-lg"
               >
                 {/* upload Image */}
                 <Image
@@ -178,43 +183,43 @@ const AdminAccount: React.FC = () => {
           {/* divider */}
           <div className="flex flex-col gap-4">
             {/*Current Password */}
-            <div className="flex flex-row mt-6">
+            <div className="flex flex-col gap-2 lg:gap-0 lg:flex-row mt-6">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Current Password
               </Label>
               <Input
-                className="w-[512px] h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                className="lg:w-[512px] lg:h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                 name="currentPassword"
                 type="password"
               />
             </div>
 
             {/* new Password */}
-            <div className="flex flex-row">
+            <div className="flex flex-col lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 New Password
               </Label>
               <Input
-                className="w-[512px] h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                className="lg:w-[512px] lg:h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                 name="newPassword"
                 type="password"
               />
             </div>
 
             {/* confirm password */}
-            <div className="flex flex-row">
+            <div className="flex flex-col lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Confirm Password
               </Label>
               <Input
-                className="w-[512px] h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                className="lg:w-[512px] lg:h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                 name="confirmPassword"
                 type="password"
               />
             </div>
           </div>
 
-          <div className="flex flex-row mb-6">
+          <div className="flex flex-col lg:flex-row mb-6">
             <div className="absolute right-2 mt-6 ">
               {/* cancel button */}
               <Button className="w-[79px] h-[40px] bg-white hover:bg-slate-100 rounded-lg border-2 font-medium text-sm">
@@ -230,41 +235,41 @@ const AdminAccount: React.FC = () => {
 
           <div className="flex flex-col gap-4 mt-10">
             {/* Role */}
-            <div className="flex flex-row mt-4">
+            <div className="flex flex-col lg:flex-row mt-4">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Role
               </Label>
               <Input
-                className="w-[512px] h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                className="lg:w-[512px] lg:h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                 name="role"
                 type="text"
               />
             </div>
 
             {/* Organization */}
-            <div className="flex flex-row">
+            <div className="flex flex-col lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Organization
               </Label>
               <Input
-                className="w-[512px] h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                className="lg:w-[512px] lg:h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                 name="organization"
               />
             </div>
 
             {/* Branch */}
-            <div className="flex flex-row">
+            <div className="flex flex-col lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Branch
               </Label>
               <Input
-                className="w-[512px] h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                className="lg:w-[512px] lg:h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                 name="branch"
               />
             </div>
 
             {/* Department */}
-            <div className="flex flex-row">
+            <div className="flex flex-col lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Department
               </Label>
@@ -273,15 +278,15 @@ const AdminAccount: React.FC = () => {
                 {(item: { name: any }) => item.name}
               </MySelect> */}
 
-              <Select className="relative w-[512px] h-[44px]  text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none  rounded-lg">
-                <Button className="text-left w-[512px] h-[44px] font-medium text-sm text-slate-800 border-none outline-none rounded-lg p-2">
+              <Select className="relative lg:w-[512px] lg:h-[44px]  text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none  rounded-lg">
+                <Button className="text-left lg:w-[512px] lg:h-[44px] font-medium text-sm text-slate-800 border-none outline-none rounded-lg p-2">
                   <SelectValue />
                   <span className="absolute right-2" aria-hidden="true">
                     ▼
                   </span>
                 </Button>
-                <Popover>
-                  <ListBox className="w-[512px] text-sm font-medium text-slate-800 border-2 border-slate-300 bg-white  outline-none p-2 rounded-lg hover:cursor-pointer">
+                <Popover className="">
+                  <ListBox className="lg:w-[512px] text-sm font-medium text-slate-800 border-2 border-slate-300 bg-white  outline-none p-2 rounded-lg hover:cursor-pointer">
                     <ListBoxItem className="focus:bg-slate-400 focus:outline-none p-2 rounded-md">
                       IT Department
                     </ListBoxItem>
@@ -297,29 +302,24 @@ const AdminAccount: React.FC = () => {
             </div>
 
             {/* Website */}
-            <div className="flex flex-row">
+            <div className="flex flex-col lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Website
               </Label>
               <Input
-                className="w-[512px] h-[44px] text-sm font medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
+                className="lg:w-[512px] lg:h-[44px] text-sm font medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
                 name="website"
               />
             </div>
 
             {/* Bio */}
-            <div className="flex flex-row">
+            <div className="flex flex-col lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Bio
                 <p className="text-xs font-medium text-slate-700">
                   Write a short introduction.
                 </p>
               </Label>
-              {/* <Input
-                className="w-[512px] h-[154px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
-                name="bio"
-              /> */}
-              {/* Quill component */}
               <TextEditor />
             </div>
           </div>

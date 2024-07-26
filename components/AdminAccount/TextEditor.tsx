@@ -28,7 +28,7 @@ const TextEditor = () => {
           formats={TextEditor.formats}
           onChange={handleBody}
           value={body}
-          className="w-[512px] h-[154px] text-slate-800 border-2 border-slate-300 focus:bg-white outline-none rounded-lg border-none"
+          className="lg:w-[512px] lg:max-h-[100px] text-slate-800 border-slate-300 rounded-lg border-none"
         />
       </div>
       {/* <button onClick={handleSubmit}>Submit</button> */}

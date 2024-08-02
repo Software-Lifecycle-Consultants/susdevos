@@ -1,6 +1,6 @@
 // Step3.tsx
 import Image from 'next/image';
-import { Button, Input, Label, Link, TextField } from 'react-aria-components';
+import { Button, Link,} from 'react-aria-components';
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
@@ -31,7 +31,7 @@ const Step3: React.FC<Step3Props> = ({ onPrevious , email }) => {
             <p className='text-gray-500 font-semibold'>{email}</p>
           </div>
 
-          <button className="bg-black hover:bg-gray-300 active:bg-blue-500 rounded p-2 px-32 outline-none focus:ring-2 focus:ring-offset-1 transition text-white hover:text-black hover:font-semibold my-6">Open Email App</button>
+          <Button className="bg-black hover:bg-gray-300 active:bg-blue-500 rounded p-2 px-32 outline-none focus:ring-2 focus:ring-offset-1 transition text-white hover:text-black hover:font-semibold my-6">Open Email App</Button>
           <Link
            className="text-gray-500 font-semibold outline-none hover:text-blue-500 flex flex-row"
            href="/login"

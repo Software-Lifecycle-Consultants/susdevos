@@ -10,28 +10,28 @@ const Setting = () => {
       image: <i className="ri-account-circle-line"></i>,
       alt: 'Home Image',
       button: true,
-      link: '/admin/home'
+      link: '/admin/account-setting'
     },
     {
       title: 'Company Settings',
       image: <i className="ri-building-line"></i>,
       alt: 'Dashboard Image',
       button: true,
-      link: '/admin/home'
+      link: '/admin/company-settings'
     },
     {
       title: 'User Management',
       image: <i className="ri-group-line"></i>,
       alt: 'Projects Image',
       button: true,
-      link: '/admin/home'
+      link: '/admin/user-management'
     },
     {
       title: 'Role Management',
       image: <i className="ri-toggle-line"></i>,
       alt: 'Task Image',
       button: true,
-      link: '/admin/home'
+      link: '/admin/role-management'
     },
     // Add more card data objects as needed
   ];
@@ -61,7 +61,7 @@ const Setting = () => {
           image={card.image}
           titleHandler={titleChangeHandler}
           button={card.button}
-          link={card.title}
+          link={card.link}
           textLogic={selectedTitleDetails !== ''}
           extraStyle='h-[25px]'
         />

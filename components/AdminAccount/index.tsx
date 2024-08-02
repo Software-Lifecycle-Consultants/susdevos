@@ -1,12 +1,12 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import {
   Button,
   Form,
-  HeadingContext,
   Input,
   Label,
   ListBox,
@@ -15,10 +15,13 @@ import {
   Select,
   SelectValue,
 } from 'react-aria-components';
+import { FieldValues, useForm } from 'react-hook-form';
+
 
 import TextEditor from './TextEditor';
+import { profileSchema, profileSchemaData } from './clientActions';
 
-const AdminAccount: React.FC = () => {
+const AdminAccount: React.FC= () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -36,7 +39,28 @@ const AdminAccount: React.FC = () => {
     bio: '',
   });
 
-  const onSubmit = async (e: any) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(profileSchema),
+  });
+
+  const onSubmit = async (data: FieldValues) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  };
+
+  const getErrorMessage = (error: any) => {
+    if (error) {
+      if (typeof error === 'string') return error;
+      if (error.message) return error.message;
+    }
+    return null;
+  };
+
+  // profile photo upload
+  const onUpload = async (e: any) => {
     const fd = new FormData();
     fd.append('myfile', formData.img);
     let res = await fetch(``, {
@@ -55,36 +79,41 @@ const AdminAccount: React.FC = () => {
   });
 
   return (
-    <div className="flex flex-col bg-yellow-100 p-2 gap-2">
-      <div className="bg-white">
-        <h1 className="font-semibold text-2xl lg:text-3xl">My Account</h1>
-        <p className="text-md lg-text-base font-medium text-slate-800">
+    <div className="flex flex-col mx-auto lg:p-6 p-4 gap-2">
+      <div className="flex flex-col">
+        <h1 className="font-semibold lg:text-left text-center text-2xl lg:text-3xl">
+          My Account
+        </h1>
+        <p className="lg:text-left text-center text-sm lg:text-base font-medium text-slate-800">
           Manage your personal profile details here.
         </p>
       </div>
-      <div className="flex flex-col bg-white mt-5 lg:px-10 ">
-        <h1 className="font-semibold text-lg lg:text-xl">Personal Info</h1>
-        <p className="text-left text-base font-medium text-slate-800">
+      <div className="relative flex flex-col mx-auto bg-white mt-5">
+        <h1 className="font-semibold text-md lg:text-xl">Personal Info</h1>
+        <p className="w-40 lg:w-fit text-left text-xs lg:text-sm font-medium text-slate-800">
           Update your photo and personal details here.
         </p>
-
-        <div className="flex flex-row  gap-2 absolute right-2 justify-center">
+        <div className="flex flex-row mt-2 lg:mt-5 gap-2 absolute right-0 lg:right-3">
           {/* cancel button */}
-          <Button className="w-[79px] h-[40px] bg-white hover:bg-slate-100 rounded-lg border-2 font-medium text-sm">
+          <Button className="w-16 h-10 lg:w-[79px] lg:h-[40px] bg-white hover:bg-slate-100 rounded-lg border-2 font-medium text-sm">
             Cancel
           </Button>
 
           {/* Save Button */}
-          <Button className="w-[65px] h-[40px] bg-purple-900 hover:bg-purple-800 text-white rounded-lg font-medium text-sm">
+          <Button className="w-14 h-10 lg:w-[65px] lg:h-[40px] bg-purple-900 hover:bg-purple-800 text-white rounded-lg font-medium text-sm">
             Save
           </Button>
         </div>
 
-        <Form className="flex flex-col mt-5 gap-6 lg:w-[1494px] lg:h-[1284px] divide-y divide-slate-300">
+        <Form
+          onSubmit={handleSubmit(onSubmit)}
+          className="relative flex flex-col mx-auto mt-2 mb-6 lg:mt-2 gap-6 w-80 lg:w-[1494px] lg:h-[1284px] divide-y-2 divide-slate-300"
+        >
+          <div></div>
           {/* divider */}
           <div className="flex flex-col gap-4">
             {/* name */}
-            <div className="flex flex-col gap-2 lg:gap-0 lg:flex-row">
+            <div className="flex flex-col gap-2 mt-5 lg:gap-0 lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Name
               </Label>
@@ -158,7 +187,7 @@ const AdminAccount: React.FC = () => {
               {/* Upload Button */}
               <Button
                 onPress={onSubmit}
-                className="lg:w-[428px] lg:h-[128px] rounded-normal border-2 border-slate-300 rounded-lg"
+                className="lg:w-[428px] p-2 lg:h-[128px] rounded-normal border-2 border-slate-300 rounded-lg"
               >
                 {/* upload Image */}
                 <Image
@@ -169,11 +198,11 @@ const AdminAccount: React.FC = () => {
                   alt="profile"
                 />
 
-                <p className="text-sm font-medium text-slate-700">
+                <p className="text-sm mx-auto font-medium text-slate-700">
                   <span className="text-purple-500">Click to upload</span> or
                   drag and drop
                 </p>
-                <p className="text-sm font-medium text-slate-700">
+                <p className="text-sm mx-auto font-medium text-slate-700">
                   SVG, PNG, JPG or GIF (max. 800x400px)
                 </p>
               </Button>
@@ -189,9 +218,15 @@ const AdminAccount: React.FC = () => {
               </Label>
               <Input
                 className="lg:w-[512px] lg:h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
-                name="currentPassword"
+               
                 type="password"
+                {...register('currentPassword')}
               />
+              {errors?.currentPassword && (
+                <span className="text-red-500 mt-1 lg:ml-4 my-auto">
+                  {getErrorMessage(errors.currentPassword)}
+                </span>
+              )}
             </div>
 
             {/* new Password */}
@@ -201,9 +236,15 @@ const AdminAccount: React.FC = () => {
               </Label>
               <Input
                 className="lg:w-[512px] lg:h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
-                name="newPassword"
+              
                 type="password"
+                {...register('newPassword')}
               />
+              {errors?.newPassword && (
+                <span className="text-red-500 mt-1 lg:ml-4 my-auto">
+                  {getErrorMessage(errors.newPassword)}
+                </span>
+              )}
             </div>
 
             {/* confirm password */}
@@ -213,29 +254,35 @@ const AdminAccount: React.FC = () => {
               </Label>
               <Input
                 className="lg:w-[512px] lg:h-[44px] text-sm font-medium text-slate-800 border-2 border-slate-300 focus:bg-white outline-none p-2 rounded-lg"
-                name="confirmPassword"
+  
+                {...register('confirmPassword')}
                 type="password"
               />
+              {errors?.confirmPassword && (
+                <span className="text-red-500 mt-1 lg:ml-4 my-auto">
+                  {getErrorMessage(errors.confirmPassword)}
+                </span>
+              )}
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row mb-6">
-            <div className="absolute right-2 mt-6 ">
+          <div className="flex flex-col lg:flex-row mb-10 lg:mb-6">
+            <div className="absolute right-0 lg:right-3 mt-3 lg:mt-6">
               {/* cancel button */}
-              <Button className="w-[79px] h-[40px] bg-white hover:bg-slate-100 rounded-lg border-2 font-medium text-sm">
+              <Button className="w-16 h-10 lg:w-[79px] lg:h-[40px] bg-white hover:bg-slate-100 rounded-lg border-2 font-medium text-sm">
                 Cancel
               </Button>
 
               {/* update Button */}
-              <Button className="w-[151px] h-[40px] bg-purple-900 hover:bg-purple-800 text-white rounded-lg ml-2 font-medium text-sm">
+              <Button type='submit' className="w-36 h-10 lg:w-[151px] lg:h-[40px] bg-purple-900 hover:bg-purple-800 text-white rounded-lg ml-2 font-medium text-sm">
                 Update Password
               </Button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 mt-10">
+          <div className="flex flex-col gap-4 lg:mt-10">
             {/* Role */}
-            <div className="flex flex-col lg:flex-row mt-4">
+            <div className="flex flex-col gap-2 lg:flex-row mt-4">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Role
               </Label>
@@ -247,7 +294,7 @@ const AdminAccount: React.FC = () => {
             </div>
 
             {/* Organization */}
-            <div className="flex flex-col lg:flex-row">
+            <div className="flex flex-col gap-2 lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Organization
               </Label>
@@ -258,7 +305,7 @@ const AdminAccount: React.FC = () => {
             </div>
 
             {/* Branch */}
-            <div className="flex flex-col lg:flex-row">
+            <div className="flex flex-col gap-2 lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Branch
               </Label>
@@ -269,7 +316,7 @@ const AdminAccount: React.FC = () => {
             </div>
 
             {/* Department */}
-            <div className="flex flex-col lg:flex-row">
+            <div className="flex flex-col gap-2 lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Department
               </Label>
@@ -302,7 +349,7 @@ const AdminAccount: React.FC = () => {
             </div>
 
             {/* Website */}
-            <div className="flex flex-col lg:flex-row">
+            <div className="flex flex-col gap-2 lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Website
               </Label>
@@ -313,7 +360,7 @@ const AdminAccount: React.FC = () => {
             </div>
 
             {/* Bio */}
-            <div className="flex flex-col lg:flex-row">
+            <div className="flex flex-col gap-2 lg:flex-row">
               <Label className="my-auto font-medium w-[280px] h-[20px] text-sm text-slate-800">
                 Bio
                 <p className="text-xs font-medium text-slate-700">
@@ -325,14 +372,14 @@ const AdminAccount: React.FC = () => {
           </div>
 
           <div className="flex flex-row">
-            <div className="absolute right-2 mt-4">
+            <div className="absolute right-0 lg:right-3 mb-4 mt-4">
               {/* cancel button */}
-              <Button className="w-[79px] h-[40px] bg-white hover:bg-slate-100 rounded-lg border-2 font-medium text-sm">
+              <Button className="w-16 h-10 lg:w-[79px] lg:h-[40px] bg-white hover:bg-slate-100 rounded-lg border-2 font-medium text-sm">
                 Cancel
               </Button>
 
               {/* Save Button */}
-              <Button className="w-[65px] h-[40px] bg-purple-900 hover:bg-purple-800 text-white rounded-lg ml-2 font-medium text-sm">
+              <Button className="w-14 h-10 lg:w-[65px] lg:h-[40px] bg-purple-900 hover:bg-purple-800 text-white rounded-lg ml-2 font-medium text-sm">
                 Save
               </Button>
             </div>

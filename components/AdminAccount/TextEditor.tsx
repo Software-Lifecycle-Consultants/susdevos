@@ -21,14 +21,14 @@ const TextEditor = () => {
 
   return (
     <>
-      <div>
+      <div className='mt-4 mb-10 lg:mt-0 lg:mb-10 '>
         <ReactQuill
           placeholder="Write something..."
           modules={TextEditor.modules}
           formats={TextEditor.formats}
           onChange={handleBody}
           value={body}
-          className="lg:w-[512px] lg:max-h-[100px] text-slate-800 border-slate-300 rounded-lg border-none"
+          className="lg:h-40 h-24 lg:w-[512px] lg:max-h-[100px] text-slate-800 border-slate-300 rounded-lg border-none"
         />
       </div>
       {/* <button onClick={handleSubmit}>Submit</button> */}

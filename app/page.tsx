@@ -17,6 +17,7 @@ import TextBanner from '@/components/TextBanner';
 import SusDev from '@/components/SusDevOsMain';
 
 
+
 export default async function Page() {
   const { user } = await validateRequest();
   if (!user) {
@@ -63,6 +64,7 @@ export default async function Page() {
           <div><PartneringContent /></div>
           {/* Footer*/}
           <div><Footer /></div>
+          
         </div>
       </div>
     </div>

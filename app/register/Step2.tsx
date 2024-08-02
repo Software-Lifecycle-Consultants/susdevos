@@ -1,6 +1,6 @@
 // Step2.tsx
 import React, { useState, ChangeEvent } from 'react';
-import { Button, Input, Label, Link, TextField } from 'react-aria-components';
+import { Button, Input, Label, Link, TextArea, Form } from 'react-aria-components';
 import Image from 'next/image';
 import { useForm, type FieldValues } from 'react-hook-form';
 import PhoneNumberInput from './PhoneNumberInput';
@@ -55,9 +55,9 @@ const Step2: React.FC<Step2Props> = ({ onNext, onPrevious, onChange }) => {
           <h1 className="text-3xl font-semibold">One more step.</h1>
           <p className='text-base'>something should write here</p>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <div className='flex flex-col gap-2'>
-          <label>Organisation</label>
+          <Label>Organisation</Label>
           <input 
           {...register('organization')}
           type="text" name="organization" placeholder="Enter Your Name" className="bg-white focus:bg-white outline-none p-2 focus:ring-2 focus:ring-offset-1 transition border-2 border-slate-300 rounded-lg" style={{ color: 'black' }} />
@@ -69,12 +69,12 @@ const Step2: React.FC<Step2Props> = ({ onNext, onPrevious, onChange }) => {
       
 
           <Label>Your Message</Label>
-          <textarea
+          <TextArea
           {...register('message')}
           name="message" placeholder="Write here if you have anything else to know." className="bg-white focus:bg-white outline-none p-2 focus:ring-2 focus:ring-offset-1 transition border-2 border-slate-300 rounded-lg" style={{ color: 'black' }}/>
 
-          <label>
-            <input
+          <Label>
+            <Input
               type="checkbox"
               {...register('terms')}
               className='mr-2'
@@ -92,16 +92,16 @@ const Step2: React.FC<Step2Props> = ({ onNext, onPrevious, onChange }) => {
                 conditions
               </Link>
               
-          </label>
+          </Label>
           {
             errors.terms && <p className='text-red-500'>{errors.terms.message}</p>
           }
-          <button className="bg-black hover:bg-gray-300 active:bg-blue-500 rounded p-2 outline-none focus:ring-2 focus:ring-offset-1 transition text-white hover:text-black hover:font-semibold"
-           type='submit'>Create Account</button>
+          <Button className="bg-black hover:bg-gray-300 active:bg-blue-500 rounded p-2 outline-none focus:ring-2 focus:ring-offset-1 transition text-white hover:text-black hover:font-semibold"
+           type='submit'>Create Account</Button>
 
           </div>
 
-        </form>
+        </Form>
 
         
 

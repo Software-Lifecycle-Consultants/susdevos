@@ -81,10 +81,10 @@ const AdminAccount: React.FC= () => {
   return (
     <div className="flex flex-col mx-auto lg:p-6 p-4 gap-2">
       <div className="flex flex-col">
-        <h1 className="font-semibold lg:text-left text-center text-2xl lg:text-3xl">
+        <h1 className="font-semibold xl:text-left text-center text-2xl lg:text-3xl">
           My Account
         </h1>
-        <p className="lg:text-left text-center text-sm lg:text-base font-medium text-slate-800">
+        <p className="xl:text-left text-center text-sm lg:text-base font-medium text-slate-800">
           Manage your personal profile details here.
         </p>
       </div>
@@ -107,7 +107,7 @@ const AdminAccount: React.FC= () => {
 
         <Form
           onSubmit={handleSubmit(onSubmit)}
-          className="relative flex flex-col mx-auto mt-2 mb-6 lg:mt-2 gap-6 w-80 lg:w-[1494px] lg:h-[1284px] divide-y-2 divide-slate-300"
+          className="relative flex flex-col mx-auto mt-2 mb-6 lg:mt-2 gap-6 w-80 lg:w-fit xl:w-[1494px] lg:h-[1284px] divide-y-2 divide-slate-300"
         >
           <div></div>
           {/* divider */}

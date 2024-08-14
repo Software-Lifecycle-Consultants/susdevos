@@ -1,4 +1,5 @@
 'use client';
+
 import Image from 'next/image';
 import React, { ChangeEvent, useState } from 'react';
 import { Button, Form, Input, Label } from 'react-aria-components';
@@ -7,11 +8,29 @@ interface TaglineInputProps {
   maxCharacters?: number;
 }
 
-const AdminCompanySetting: React.FC<TaglineInputProps> = ({ maxCharacters = 100 }) => {
+const AdminCompanySetting: React.FC<TaglineInputProps> = ({
+  maxCharacters = 100,
+}) => {
   const [tagline, setTagline] = useState<string>('');
+  const [img, setImg] = useState('');
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTagline(e.target.value);
+
+    // profile photo upload
+    const onUpload = async (e: any) => {
+      const fd = new FormData();
+      fd.append('myfile', img);
+      let res = await fetch(``, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'image/jpeg',
+        },
+        body: fd,
+      });
+      let response = await res.json();
+      console.log(response);
+    };
   };
   return (
     <div className="flex flex-col mx-auto lg:p-6 p-4 gap-2">

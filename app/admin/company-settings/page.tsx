@@ -1,9 +1,9 @@
+import AdminCompanySetting from '@/components/AdminCompanySetting';
 
-
-export default function userManagement() {
+export default function adminCompanySetting() {
   return (
     <div>
-      User Management
+      <AdminCompanySetting />
     </div>
   );
 }

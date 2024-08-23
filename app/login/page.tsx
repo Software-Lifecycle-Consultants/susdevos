@@ -76,7 +76,7 @@ export default function Page({
           action={(err, formData) => {
             const valid = validate(formData);
             if (valid) {
-              return onSubmit(err, formData, rememberMe); //  Pass rememberMe state to onSubmit
+              return onSubmit(err, formData); //  Pass rememberMe state to onSubmit
             }
 
             return { error: 'Validation Error.' };
@@ -116,7 +116,7 @@ export default function Page({
                   type="checkbox"
                   className="peer absolute left-0 h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-blue-gray-200 transition-all checked:border-gray-900 checked:bg-gray-900"
                   id="check"
-                  onChange={(e) => setRememberMe(e.target.checked)} // Update rememberMe state on change
+                  name='rememberMe'
                 />
                 <span className="lg:pr-1 absolute text-white transition-opacity opacity-0 pointer-events-none left-0 translate-x-1/4 lg:top-2/4 lg:left-2/4 lg:-translate-y-2/4 lg:-translate-x-2/4 peer-checked:opacity-100">
                   <svg

@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * This SearchBar component is used in the MainContent component.
  * It provides a search bar for tablet and web view, and separates

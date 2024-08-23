@@ -2,20 +2,18 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import {
-  Button,
-  Checkbox,
-  Input,
-  Label,
-  Link,
-  TextField,
-} from 'react-aria-components';
+import { Button, Checkbox, Input, Label, Link, TextField } from 'react-aria-components';
 import { ZodError } from 'zod';
+
+
 
 import ClientForm from '@/components/ClientForm';
 
+
+
 import { LoginScema } from './clientActions';
 import { onSubmit } from './serverActions';
+
 
 export default function Page({
   params,
@@ -26,6 +24,7 @@ export default function Page({
 }) {
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [rememberMe, setRememberMe] = useState(false); // <-- Added state for rememberMe
 
   const validate = (f: FormData) => {
     const formData = {
@@ -77,7 +76,7 @@ export default function Page({
           action={(err, formData) => {
             const valid = validate(formData);
             if (valid) {
-              return onSubmit(err, formData);
+              return onSubmit(err, formData); //  Pass rememberMe state to onSubmit
             }
 
             return { error: 'Validation Error.' };
@@ -117,6 +116,7 @@ export default function Page({
                   type="checkbox"
                   className="peer absolute left-0 h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-blue-gray-200 transition-all checked:border-gray-900 checked:bg-gray-900"
                   id="check"
+                  name='rememberMe'
                 />
                 <span className="lg:pr-1 absolute text-white transition-opacity opacity-0 pointer-events-none left-0 translate-x-1/4 lg:top-2/4 lg:left-2/4 lg:-translate-y-2/4 lg:-translate-x-2/4 peer-checked:opacity-100">
                   <svg
